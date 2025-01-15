@@ -81,12 +81,26 @@ body {
     z-index: 1;
 }
 
+.product-category-header {
+    text-align: center;
+    padding: 10px;
+    margin: 5px 80px;
+    border-top: 5px solid #4CAF50;
+    border-bottom: 5px solid #4CAF50;
+}
+
 .product-title {
     font-weight: bold;
     margin-bottom: 10px;
 }
 
 .product-price {
+    color: #e74c3c;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.product-desc {
     color: #e74c3c;
     font-size: 1.2rem;
     margin-bottom: 10px;
