@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { removeItem, updateQuantity, clearCart } from './CartSlice';
 import './CartItem.css';
@@ -27,10 +27,10 @@ const CartItem = ({ onContinueShopping }) => {
 
     const handleCheckoutShopping = () => {
         setCheckedOut(true); 
-        dispatch(clearCart());
         setTimeout(() => {
             setCheckedOut(false);
-        }, 5000);
+        }, 2000);
+        dispatch(clearCart());
     };
 
     const handleIncrement = (item) => {
@@ -84,6 +84,11 @@ const CartItem = ({ onContinueShopping }) => {
                 <br />
                 <button className="get-started-button1" onClick={handleCheckoutShopping}>Checkout</button>
             </div>
+            {checkedOut && (
+                <div className="checked-out-message">
+                    Checking out...
+                </div>
+            )}
         </div>
     );
 };
