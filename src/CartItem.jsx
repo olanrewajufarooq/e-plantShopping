@@ -1,9 +1,10 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { removeItem, updateQuantity } from './CartSlice';
+import { removeItem, updateQuantity, clearCart } from './CartSlice';
 import './CartItem.css';
 
 const CartItem = ({ onContinueShopping }) => {
+    const [checkedOut, setCheckedOut] = useState(false);
     const cart = useSelector(state => state.cart.items);
     const dispatch = useDispatch();
 
@@ -20,8 +21,16 @@ const CartItem = ({ onContinueShopping }) => {
         onContinueShopping(e);
     };
 
-    const handleCheckoutShopping = (e) => {
-        alert('Functionality to be added for future reference');
+    // const handleCheckoutShopping = (e) => {
+    //     alert('Functionality to be added for future reference');
+    // };
+
+    const handleCheckoutShopping = () => {
+        setCheckedOut(true); 
+        dispatch(clearCart());
+        setTimeout(() => {
+            setCheckedOut(false);
+        }, 5000);
     };
 
     const handleIncrement = (item) => {
@@ -30,8 +39,12 @@ const CartItem = ({ onContinueShopping }) => {
     };
 
     const handleDecrement = (item) => {
-        const action_payload = {name: item.name, quantity: item.quantity - 1};
-        dispatch(updateQuantity(action_payload));
+        if (item.quantity > 1) {
+            const action_payload = {name: item.name, quantity: item.quantity - 1};
+            dispatch(updateQuantity(action_payload));
+        } else if (item.quantity == 1) {
+            dispatch(removeItem(item.name));
+        }
     };
 
     const handleRemove = (item) => {
